@@ -2,6 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from datetime import datetime
 from jinja2 import Template
 import socket
+import sys
 
 class SimpleWebServer(BaseHTTPRequestHandler):
     
@@ -37,7 +38,7 @@ class SimpleWebServer(BaseHTTPRequestHandler):
 
 
 if __name__=='__main__':
-    ADDRESS = 'localhost'
+    ADDRESS = sys.argv[1]
     PORT = 8080
     AMOUNT=0
     labserver = HTTPServer((ADDRESS, PORT), SimpleWebServer)
@@ -46,5 +47,7 @@ if __name__=='__main__':
         labserver.serve_forever()
     except KeyboardInterrupt:
         pass
+    except Exception as e:
+        print(e)
     
     labserver.server_close()
